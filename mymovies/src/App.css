@@ -23,3 +23,15 @@ body{
   margin-top: 2rem;
   
 }
+
+.footer{
+  height: 3rem;
+  padding: 2rem;
+  color: white;
+  background-color: black;
+  margin-top: 17rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

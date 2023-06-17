@@ -1,9 +1,9 @@
 import React from 'react'
-
+ 
 function Footer() {
   return (
     <div>
-        <footer></footer>
+        <footer className='footer'>developed and designed by devkhay</footer>
     </div>
   )
 }
