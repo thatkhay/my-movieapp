@@ -10,6 +10,12 @@ function App() {
 
   async function searchMovies(searchTerm) {
     try {
+      if (!searchTerm) {
+        setMovies([]);
+        setErrorMessage('Input movie title');
+        return;
+      }
+
       const apiKey = '7a447440';
 
       const response = await axios.get(
@@ -18,7 +24,6 @@ function App() {
 
       if (response.data.Response === "True") {
         setMovies(response.data.Search);
-        console.log(response.data.Search);
         setErrorMessage('');
       } else {
         setMovies([]);

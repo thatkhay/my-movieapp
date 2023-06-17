@@ -22,9 +22,14 @@ body{
 
 
 
-.moviePoster{
-  margin-top: 2rem;
+.movies{
+ border-radius: 5rem;
+ margin-top: 2rem;
   
+}
+
+.showMoreButton{
+  margin-top: 4rem;
 }
 
 .footer{
