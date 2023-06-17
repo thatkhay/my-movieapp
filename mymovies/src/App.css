@@ -9,13 +9,17 @@
   font-family: 'Roboto Slab', serif;
 }
 
+body{
+  background-color: rgb(212, 212, 212);
+}
 .movieBody{
-  margin-top: 2rem;
+  margin-top: 3rem;
+ 
 }
 
-.movieDiv{
+
+
+.moviePoster{
   margin-top: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  
 }
