@@ -5,29 +5,39 @@ import axios from 'axios';
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [search, setSearch] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  async function searchMovies() {
+  async function searchMovies(searchTerm) {
     try {
       const apiKey = '7a447440';
-      const searchTerm = 'Avatar';
 
       const response = await axios.get(
         `https://www.omdbapi.com/?apikey=${apiKey}&s=${searchTerm}`
       );
-      console.log(response.data);
-      setMovies(response.data.Search || []);
+
+      if (response.data.Response === "True") {
+        setMovies(response.data.Search);
+        console.log(response.data.Search);
+        setErrorMessage('');
+      } else {
+        setMovies([]);
+        setErrorMessage(response.data.Error);
+      }
     } catch (error) {
       console.error(error);
+      setMovies([]);
+      setErrorMessage('Error searching movies. Please try again later.');
     }
   }
 
   useEffect(() => {
-    searchMovies();
-  }, []);
+    searchMovies(search);
+  }, [search]);
 
   return (
     <div className="App">
-      <Mypage movies={movies} />
+      <Mypage movies={movies} search={search} setSearch={setSearch} errorMessage={errorMessage} />
     </div>
   );
 }
