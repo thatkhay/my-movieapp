@@ -3,11 +3,11 @@ import Header from '../component/Header';
 import Moviebody from '../component/Moviebody';
 import Footer from '../component/Footer';
 
-function Mypage({ movies, search, setSearch, errorMessage}) {
+function Mypage({ movies, search, setSearch, errorMessage, loadMoreMovies, totalPages, currentPage }) {
   return (
     <div className='myPage'>
       <Header />
-      <Moviebody className="movieBody" movies={movies} search={search} setSearch={setSearch} errorMessage={errorMessage} />
+      <Moviebody className="movieBody" movies={movies} search={search} setSearch={setSearch} errorMessage={errorMessage} loadMoreMovies={loadMoreMovies} totalPages={totalPages} currentPage={currentPage} />
       <Footer />
     </div>
   );

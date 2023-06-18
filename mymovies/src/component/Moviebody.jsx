@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 
-function Moviebody({ movies, setSearch, search, errorMessage }) {
+function Moviebody({ movies, setSearch, search, errorMessage, loadMoreMovies, totalPages, currentPage }) {
   const [expandedMovieId, setExpandedMovieId] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const toggleDetails = (movieId) => {
     if (expandedMovieId === movieId) {
@@ -11,6 +13,24 @@ function Moviebody({ movies, setSearch, search, errorMessage }) {
     } else {
       setExpandedMovieId(movieId);
     }
+  };
+
+  useEffect(() => {
+    setExpandedMovieId('');
+  }, [search]);
+
+  const handleLoadMore = () => {
+    setLoading(true); 
+
+    setTimeout(async () => {
+      try {
+        await loadMoreMovies();
+      } catch (error) {
+        console.log('Error loading more movies:', error);
+      }
+
+      setLoading(false); 
+    }, 2000); 
   };
 
   return (
@@ -64,6 +84,15 @@ function Moviebody({ movies, setSearch, search, errorMessage }) {
         ))}
       </div>
       {errorMessage && <p style={{ color: 'red', textAlign: 'center' }}>{errorMessage}</p>}
+      {currentPage < totalPages && (
+        <Button
+          style={{ height: '2rem', width: '7rem', backgroundColor: 'black', fontSize: '.5rem', color: 'white', marginTop: '2rem' }}
+          onClick={handleLoadMore}
+          disabled={loading} 
+        >
+          {loading ? <CircularProgress size={20} color="inherit" /> : 'Load More'}
+        </Button>
+      )}
     </div>
   );
 }
