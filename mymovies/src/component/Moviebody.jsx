@@ -2,16 +2,22 @@ import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
+import axios from 'axios';
 
 function Moviebody({ movies, setSearch, search, errorMessage, loadMoreMovies, totalPages, currentPage }) {
   const [expandedMovieId, setExpandedMovieId] = useState('');
   const [loading, setLoading] = useState(false);
+  const [movieDetails, setMovieDetails] = useState({});
 
-  const toggleDetails = (movieId) => {
-    if (expandedMovieId === movieId) {
-      setExpandedMovieId('');
-    } else {
-      setExpandedMovieId(movieId);
+  const getMovieDetails = async (id) => {
+    try {
+      const apiKey = 'f20d812250a70b94887c21e989fafe18';
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`);
+      const { overview, popularity } = response.data;
+      return { id, overview, popularity };
+    } catch (error) {
+      console.error('Error fetching movie details:', error);
+      return {};
     }
   };
 
@@ -19,8 +25,22 @@ function Moviebody({ movies, setSearch, search, errorMessage, loadMoreMovies, to
     setExpandedMovieId('');
   }, [search]);
 
+  const toggleDetails = async (movieId) => {
+    if (expandedMovieId === movieId) {
+      setExpandedMovieId('');
+    } else {
+      setExpandedMovieId(movieId);
+      setLoading(true);
+
+      const movieDetail = await getMovieDetails(movieId);
+      setMovieDetails(movieDetail);
+
+      setLoading(false);
+    }
+  };
+
   const handleLoadMore = () => {
-    setLoading(true); 
+    setLoading(true);
 
     setTimeout(async () => {
       try {
@@ -29,8 +49,8 @@ function Moviebody({ movies, setSearch, search, errorMessage, loadMoreMovies, to
         console.log('Error loading more movies:', error);
       }
 
-      setLoading(false); 
-    }, 2000); 
+      setLoading(false);
+    }, 2000);
   };
 
   return (
@@ -72,6 +92,12 @@ function Moviebody({ movies, setSearch, search, errorMessage, loadMoreMovies, to
               <>
                 <p style={{ fontSize: '1rem', fontWeight: '500', marginBottom: '0.5rem', textAlign: 'center' }}>{movie.Type}</p>
                 <p style={{ fontSize: '0.8rem', marginBottom: '0.5rem', textAlign: 'center' }}>{movie.imdbID}</p>
+                {movieDetails.id === movie.imdbID && (
+                  <div>
+                    <p style={{maxWidth: '15rem'}}>Overview: {movieDetails.overview}</p>
+                    <p style={{maxWidth: '15rem'}}>Popularity: {movieDetails.popularity}</p>
+                  </div>
+                )}
               </>
             )}
             <Button
@@ -88,7 +114,7 @@ function Moviebody({ movies, setSearch, search, errorMessage, loadMoreMovies, to
         <Button
           style={{ height: '2rem', width: '7rem', backgroundColor: ' rgb(63, 62, 62)', fontSize: '.5rem', color: 'white', marginTop: '2rem' }}
           onClick={handleLoadMore}
-          disabled={loading} 
+          disabled={loading}
         >
           {loading ? <CircularProgress size={20} color="inherit" /> : 'Load More'}
         </Button>

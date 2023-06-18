@@ -39,6 +39,18 @@ function App() {
     }
   }
 
+  const getMovieDetails = async (id) => {
+    try {
+      const apiKey = 'f20d812250a70b94887c21e989fafe18';
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`);
+      const { overview, popularity } = response.data;
+      return { id, overview, popularity };
+    } catch (error) {
+      console.error('Error fetching movie details:', error);
+      return { id, overview: 'N/A', popularity: 'N/A' };
+    }
+  };
+
   useEffect(() => {
     setMovies([]);
     setPage(1);
@@ -53,7 +65,7 @@ function App() {
 
   return (
     <div className="App">
-      <Mypage movies={movies} search={search} setSearch={setSearch} errorMessage={errorMessage} loadMoreMovies={loadMoreMovies} totalPages={totalPages} currentPage={page} />
+      <Mypage movies={movies} search={search} setSearch={setSearch} errorMessage={errorMessage} loadMoreMovies={loadMoreMovies} totalPages={totalPages} currentPage={page} getMovieDetails={getMovieDetails} />
     </div>
   );
 }
