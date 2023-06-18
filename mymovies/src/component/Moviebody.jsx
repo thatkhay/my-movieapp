@@ -62,7 +62,7 @@ function Moviebody({ movies, setSearch, search, errorMessage, loadMoreMovies, to
               className='moviePoster'
               src={movie.Poster}
               alt={movie.Title}
-              style={{ width: '100%', height: 'auto', marginBottom: '1rem', maxWidth: '28rem', maxHeight: '30rem' }}
+              style={{ width: '100%', height: 'auto', marginBottom: '1rem', maxWidth: '22rem', maxHeight: '24rem' }}
             />
             <h3 style={{ color: 'secondary.main', fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '0.5rem', textAlign: 'center' }}>
               {movie.Title}
@@ -86,7 +86,7 @@ function Moviebody({ movies, setSearch, search, errorMessage, loadMoreMovies, to
       {errorMessage && <p style={{ color: 'red', textAlign: 'center' }}>{errorMessage}</p>}
       {currentPage < totalPages && (
         <Button
-          style={{ height: '2rem', width: '7rem', backgroundColor: 'black', fontSize: '.5rem', color: 'white', marginTop: '2rem' }}
+          style={{ height: '2rem', width: '7rem', backgroundColor: ' rgb(63, 62, 62)', fontSize: '.5rem', color: 'white', marginTop: '2rem' }}
           onClick={handleLoadMore}
           disabled={loading} 
         >
