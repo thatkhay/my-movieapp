@@ -3,7 +3,7 @@ movie application
 
 This applicatio is used to search and dispay movies posters with its rating, description, rating etc
 
-**Link to project:** [http://recruiters-love-seeing-live-demos.com/](https://movize.netlify.app/)
+**Link to project:** [https://movize.netlify.app/]
 
 ![alt tag](http://placecorgi.com/1200/650)
 
