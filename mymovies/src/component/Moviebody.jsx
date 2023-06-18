@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -9,7 +9,6 @@ import axios from 'axios';
 import '../App.css';
 
 function MovieBody({ movies, setSearch, search, errorMessage, loadMoreMovies, totalPages, currentPage }) {
-  const [expandedMovieId, setExpandedMovieId] = useState('');
   const [loading, setLoading] = useState(false);
   const [movieDetails, setMovieDetails] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
@@ -27,25 +26,16 @@ function MovieBody({ movies, setSearch, search, errorMessage, loadMoreMovies, to
     }
   };
 
-  useEffect(() => {
-    setExpandedMovieId('');
-  }, [search]);
-
   const toggleDetails = async (movieId) => {
-    if (expandedMovieId === movieId) {
-      setExpandedMovieId('');
-    } else {
-      setExpandedMovieId(movieId);
-      setLoading(true);
+    setLoading(true);
 
-      const selectedMovie = movies.find((movie) => movie.imdbID === movieId);
-      const movieDetail = await getMovieDetails(movieId);
-      setMovieDetails(movieDetail);
+    const selectedMovie = movies.find((movie) => movie.imdbID === movieId);
+    const movieDetail = await getMovieDetails(movieId);
+    setMovieDetails(movieDetail);
 
-      setLoading(false);
-      setModalOpen(true);
-      setSelectedMovie(selectedMovie);
-    }
+    setLoading(false);
+    setModalOpen(true);
+    setSelectedMovie(selectedMovie);
   };
 
   const handleLoadMore = () => {
@@ -103,7 +93,7 @@ function MovieBody({ movies, setSearch, search, errorMessage, loadMoreMovies, to
               style={{ height: '2rem', width: '7rem', backgroundColor: 'black', fontSize: '.5rem', color: 'white', marginTop: '2rem' }}
               onClick={() => toggleDetails(movie.imdbID)}
             >
-              {expandedMovieId === movie.imdbID ? 'View Less' : 'View More'}
+              View More
             </Button>
           </div>
         ))}
@@ -118,42 +108,38 @@ function MovieBody({ movies, setSearch, search, errorMessage, loadMoreMovies, to
           {loading ? <CircularProgress size={20} color="inherit" /> : 'Load More'}
         </Button>
       )}
-     <Modal
-  open={modalOpen}
-  onClose={() => setModalOpen(false)}
-  aria-labelledby="modal-title"
-  className="modal"
->
-  <Box
-    sx={{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      width: '90%',
-      maxWidth: 400,
-      bgcolor: 'background.paper',
-      border: '2px solid #000',
-      boxShadow: 24,
-      p: 2,
-    }}
-  >
-    <Typography variant="h5" component="h2" id="modal-title" fontWeight="bold">
-      {selectedMovie && selectedMovie.Title}
-    </Typography>
-    {movieDetails.id === selectedMovie?.imdbID && (
-      <>
-        <Typography variant="body1" component="div">
-          Overview: {movieDetails.overview}
-        </Typography>
-        <Typography variant="body1" component="div" fontWeight="bold">
-          Rating: {movieDetails.popularity}
-        </Typography>
-      </>
-    )}
-  </Box>
-</Modal>
-
+      <Modal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        aria-labelledby="modal-title"
+      >
+        <Box sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '80%',
+          maxWidth: 400,
+          bgcolor: 'background.paper',
+          border: '2px solid #000',
+          boxShadow: 24,
+          p: 2,
+        }}>
+          <Typography variant="h5" component="h2" id="modal-title" fontWeight="bold">
+            {selectedMovie && selectedMovie.Title}
+          </Typography>
+          {movieDetails.id === selectedMovie?.imdbID && (
+            <>
+              <Typography variant="body1" component="div">
+                Overview: {movieDetails.overview}
+              </Typography>
+              <Typography variant="body1" component="div" fontWeight="bold">
+                Rating: {movieDetails.popularity}
+              </Typography>
+            </>
+          )}
+        </Box>
+      </Modal>
     </div>
   );
 }
