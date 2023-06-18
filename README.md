@@ -3,9 +3,13 @@ movie application
 
 This applicatio is used to search and dispay movies posters with its rating, description, rating etc
 
+
+![moviedestop](https://github.com/thatkhay/my-movieapp/assets/117424081/79da0cb2-2152-4669-b358-7f0d13dee1ad)
+![movieappmobile](https://github.com/thatkhay/my-movieapp/assets/117424081/bca29818-16a5-4b17-b7e7-855bea4a19d2)
+
 **Link to project:** [https://movize.netlify.app/]
 
-![alt tag](http://placecorgi.com/1200/650)
+
 
 ## How It's Made:
 
