@@ -44,3 +44,11 @@ body{
   text-align: center;
   font-weight: 300;
 }
+
+
+@media screen and (min-width: 300px) and (max-width: 850px) {
+  .mainMovieDiv {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}

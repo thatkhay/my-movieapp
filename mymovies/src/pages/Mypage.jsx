@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../component/Header';
 import Moviebody from '../component/Moviebody';
 import Footer from '../component/Footer';
+import '../App.css';
 
 function Mypage({ movies, search, setSearch, errorMessage, loadMoreMovies, totalPages, currentPage }) {
   return (
