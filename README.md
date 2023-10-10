@@ -1,7 +1,7 @@
 # my-movieapp
 movie application
 
-This application is used to search and dispay movies posters with its rating, description, rating etc.
+This application is used to search and dispay movies posters with its rating, description,rating etc.
 
 
 ![moviedestop](https://github.com/thatkhay/my-movieapp/assets/117424081/79da0cb2-2152-4669-b358-7f0d13dee1ad)
